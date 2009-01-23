@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>VRTimer</title>
+
+    <style type="text/css">
+      /*margin and padding on body element
+      can introduce errors in determining
+      element position and are not recommended;
+      we turn them off as a foundation for YUI
+      CSS treatments. */
+      body {
+        margin:0;
+        padding:0;
+      }
+    </style>
+
+
+  </head>
+  <body>
+    <%= link_to 'Tasks', root_path %>
+    <br />
+    
+    <% if  flash[:notices]  %>
+      <% flash[:notices].each do |key,value| %>
+        Notice: <%= value %><br/>
+      <% end %>
+    <% end %>
+
+    <% if  flash[:errors_on_task]  %>
+      <% flash[:errors_on_task].each do |key,value| %>
+        Error: <%= value %><br/>
+      <% end %>
+    <% end %>
+
+    <% if  flash[:errors_on_changing_order]  %>
+      <% flash[:errors_on_changing_order].each do |key,value| %>
+        Error: <%= value %><br/>
+      <% end %>
+    <% end %>
+
+    <%= yield %>
+  </body>
+
+</html>

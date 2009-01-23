@@ -1,0 +1,2 @@
+class TimeRecordsController < ApplicationController
+end

@@ -1,0 +1,12 @@
+<%# debugger %>
+<% form_for :tasks_orders, :url => change_tasks_orders_path do |f|%>
+   <% for task in @tasks %>
+         <%= f.text_field task.order, :size => 2, :value => task.order %>&nbsp;<%= link_to  task.title, task_path(task) %><br />
+    <% end %>
+    <%= f.submit 'Change Order' %>
+<% end %>
+
+<%  form_for :task do |f| %>
+      <%= f.text_field :title  %><br />
+      <%= f.submit 'Create' %>
+<% end %>

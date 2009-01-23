@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+first:
+  id: 1
+  title: one
+  order: 1
+
+second:
+  id: 2
+  title: two
+  order: 2
+
+third:
+  id: 3
+  title: three
+  order: 3
+
+fourth:
+  id: 4
+  title: four
+  order: 4
+
+fifth:
+  id: 5
+  title: five
+  order: 5
+

@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title><%= page_title %></title>
+
+    <style type="text/css">
+      /*margin and padding on body element
+      can introduce errors in determining
+      element position and are not recommended;
+      we turn them off as a foundation for YUI
+      CSS treatments. */
+      body {
+        margin:0;
+        padding:0;
+      }
+    </style>
+
+    <%= stylesheet_link_tag '../yui/build/fonts/fonts-min.css'  %>
+    <%= stylesheet_link_tag '../yui/build/tabview/assets/skins/sam/tabview.css'  %>
+    <%= stylesheet_link_tag '../yui/build/calendar/assets/skins/sam/calendar.css'  %>
+    <%= stylesheet_link_tag '../yui/build/datatable/assets/skins/sam/datatable.css'  %>
+    <%= stylesheet_link_tag 'vrybas'  %>
+
+    <%= javascript_include_tag :defaults %>
+    <%#= javascript_include_tag 'prototype.js' %>
+    <%#= javascript_include_tag 'lowpro.js' %>
+    <%= javascript_include_tag 'scriptaculous.js' %>
+    <%#= javascript_include_tag 'effects.js' %>
+    <%#= javascript_include_tag 'application.js' %>
+
+    <%= javascript_include_tag 'swfobject.js' %>
+
+    <%= javascript_include_tag '../yui/build/yahoo-dom-event/yahoo-dom-event.js' %>
+    <%= javascript_include_tag '../yui/build/calendar/calendar-min.js' %>
+    <%= javascript_include_tag '../yui/build/element/element-beta-min.js' %>
+    <%= javascript_include_tag '../yui/build/datasource/datasource-beta-min.js' %>
+    <%= javascript_include_tag '../yui/build/datatable/datatable-beta-min.js' %>
+
+
+  </head>
+  <body class="yui-skin-sam" id="<%= controller.controller_name %>">
+  <div id="disable_focus_layer" style="position: absolute; left:0px; top:0px; background-color:#000000; overflow:auto; filter:alpha(Opacity=50); display: none; z-index: 100"></div>
+    <div class="central_container_div">
+      <div class="header_div">
+        <div class="header_username_div"><%=  "#{current_user.company.name} - #{current_user.firstname} #{current_user.lastname}" %></div>
+        <div class="header_left_navlinks_div">
+          <a href="#">My Account</a> &nbsp;<span class="link_separator">|</span>&nbsp;
+          <%= link_to 'Users', dashboard_users_path %>
+          &nbsp;<span class="link_separator">|</span>&nbsp;
+          <%= link_to 'Settings', dashboard_company_settings_path %>
+          &nbsp;<span class="link_separator">|</span>&nbsp;
+          <%= link_to "Log-out", logout_path %>
+        </div>
+        <div class="header_tabs_menu_div">
+          <div id="header_tabs" class="yui-navset">
+            <ul class="yui-nav">
+              <div class="header_tabs_menu_left_margin_div">&nbsp;</div>
+              <% tabs ={
+                'a' => ['dashboard', 'Home'],
+                'b' => ['accounts', 'Accounts'],
+                'c' => ['sales', 'Sales'],
+                'd' => ['purchases', 'Purchases'],
+                'e' => ['receipts', 'Money IN'],
+                'f' => ['payments', 'Money OUT']
+                }
+               tabs.each_value do |value| %>
+            <!--    <li <%#= "class='selected'" if @page == value[0] %>><a href="<%#= nav_link(value[0]) %>"><em><%#= value[1] %></em></a></li> -->
+              <li <%= "class='selected'" if @controller_name == value[0] %>><a href="<%= link_builder(value[0], @controller_name) %>"><em><%= value[1] %></em></a></li>
+              <% end %>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="header_shadow_div"><%= image_tag 'vrybas/header_shadow.png' %></div>
+      <div class="middle_div">
+        <div class="middle_left_div">
+          <div class="middle_left_header_div">
+            <div class="header_spinner_div" style="display: inline;"><span id="header_spinner" style="display:none;"><%= image_tag 'vrybas/spinner_small.gif' %></span></div>
+            <div class="middle_left_header_pagename_div">
+              <%= @page_content_title %>
+            </div>
+            <div class="middle_left_header_navlinks_div">
+              <%= render :partial => 'layouts/dashboard_header_navigation_links' if @controller_name == 'dashboard' %>
+              <%= render :partial => 'accounts/accounts_header_navigation_links' if @controller_name == 'accounts' %>
+              <%= render :partial => 'layouts/common_header_navigation_links' if ['sales','purchases','receipts','payments'].include? @controller_name  %>
+              <%= render :partial => 'account_users/account_users_header_navigation_links' if @controller_name == 'account_users' %>
+              <%= render :partial => 'messages/messages_header_navigation_links' if @controller_name == 'messages' %>
+              <%= render :partial => 'datafiles/datafiles_header_navigation_links' if @controller_name == 'datafiles' %>
+            </div>
+          </div>
+          <div id="middle_left_content_div" class="middle_left_content_div">
+            <%= yield %>
+          </div>
+          &nbsp;
+        </div>
+        <div class="middle_right_div">
+          <div class="middle_right_pre_calendar_div">
+          <div id="middle_right_calendar" class="middle_right_calendar_div">
+            <%= render :partial => 'layouts/cal_div_script' %>&nbsp;
+          </div>
+         <!-- <div id='spinner_calendar' class="spinner_calendar" style="display: none;"><%= image_tag("vrybas/spinner.gif", :border => 0) %></div> -->
+          </div>
+        <br clear="both" />
+          <% upcoming_events_dates = get_upcoming_events_dates(Date.today) %>
+          <div id="middle_right_calendar_events_and_notes" class="middle_right_calendar_events_and_notes_div" style="display: none;">
+            <%= render :partial => 'calendar/upcoming_events', :locals => {:upcoming_events_dates => upcoming_events_dates} %>
+          <script>$("middle_right_calendar_events_and_notes").show();</script>
+          </div>
+          <div class="middle_right_help_div">
+            <%= yield :help %>
+          </div>
+        </div>
+        <br clear="both" />
+      </div>
+    </div>
+  </body>
+</html>
+
+    
+

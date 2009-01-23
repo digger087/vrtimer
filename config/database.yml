@@ -1,0 +1,17 @@
+development:
+  adapter: 
+  database: 
+  username: 
+  password:
+
+test:
+  adapter: 
+  database: 
+  username:
+  password:
+
+production:
+  adapter: 
+  database: 
+  username: 
+  password:

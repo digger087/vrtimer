@@ -1,0 +1,9 @@
+<%= @task.title %><br />
+
+<% form_for(:task, :url => edit_task_path(@task), :html => {:method => :get}) do |f| %>
+    <%=  f.submit "Edit"  %>
+<% end %>
+
+<% form_for(:task, :url => task_path(@task), :html => {:method => :delete}) do |f| %>
+    <%=  f.submit "Delete"  %>
+<% end %>
