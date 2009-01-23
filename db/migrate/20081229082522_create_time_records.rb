@@ -4,6 +4,7 @@ class CreateTimeRecords < ActiveRecord::Migration
       t.column :task_id, :integer
       t.column :starttime, :datetime
       t.column :endtime, :datetime
+      t.column :duration, :integer
     end
   end
 
