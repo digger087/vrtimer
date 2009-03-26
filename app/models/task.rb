@@ -6,4 +6,14 @@ class Task < ActiveRecord::Base
   validates_uniqueness_of :order, :on => :create
   validates_numericality_of :order, :message => "Order should be a numer"
 
+
+
+
+  private
+
+  def validate
+  #  debugger
+    
+  end
+
 end

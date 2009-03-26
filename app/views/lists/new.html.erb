@@ -1,0 +1,5 @@
+<%  form_for :list do |f| %>
+      <%= f.text_field :title  %><br />
+      In <%= f.select("parent_id", List.find(:all).collect {|list| [ list.title, list.id ] }) %><br />
+      <%= f.submit 'Create List' %>
+<% end %>

@@ -1,0 +1,4 @@
+<% form_for(:task, @task, :url => task_path(@task), :html => {:method => :put}) do |f| %>
+  <%= f.text_field :title, :value => @task.title %><br />
+      <%=  f.submit "Save"  %> | <%= link_to "Cancel", task_path(@task)%>
+<% end %>

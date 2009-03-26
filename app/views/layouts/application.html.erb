@@ -18,7 +18,9 @@
 
   </head>
   <body>
-    <%= link_to 'Tasks', root_path %>
+    <%= link_to 'Main', root_path %> |
+    <%= link_to 'New List', new_list_path %> |
+    <%= link_to 'New Task', new_task_path %> |
     <br />
     
     <% if  flash[:notices]  %>

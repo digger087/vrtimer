@@ -40,10 +40,11 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
 
   map.resources :tasks
-  map.change_tasks_orders '/tasks/change_order', :controller => 'tasks', :action => 'change_order'
+  map.resources :lists
+  map.change_orders '/lists/change_order', :controller => 'lists', :action => 'change_order'
 
-  map.root :controller => 'tasks', :action => 'index'
+  map.root :controller => 'lists', :action => 'index'
 
-  #map.connect ':controller/:action/:id'
-  #map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
 end

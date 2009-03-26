@@ -9,10 +9,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081229082522) do
+ActiveRecord::Schema.define(:version => 20090123090804) do
+
+  create_table "list_tasks", :force => true do |t|
+    t.integer "list_id"
+    t.integer "task_id"
+  end
+
+  create_table "lists", :force => true do |t|
+    t.integer "parent_id"
+    t.integer "lft"
+    t.integer "rgt"
+    t.string  "title"
+    t.integer "order"
+  end
 
   create_table "tasks", :force => true do |t|
     t.string   "title"
+    t.boolean  "inprogress"
     t.datetime "completed_at"
     t.integer  "order"
   end
@@ -21,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20081229082522) do
     t.integer  "task_id"
     t.datetime "starttime"
     t.datetime "endtime"
+    t.integer  "duration"
   end
 
 end
