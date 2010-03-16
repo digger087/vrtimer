@@ -5,10 +5,10 @@ class TasksController < ApplicationController
   end
 
   def new
-    
+
   end
 
-  def create 
+  def create
     @task = Task.new(params[:task])
     @task.order = Task.count(:all) + 1
     if !@task.save
@@ -66,7 +66,7 @@ class TasksController < ApplicationController
   def change_order
     # ------------- Checking if the order has changed and memorizing
     #                    original value and new value of changed order.
-    # ------------- Break when first changed order found from top 
+    # ------------- Break when first changed order found from top
     #                    to ignore the lower ones
     params[:tasks_orders].each do |original,actual|
       if original != actual
@@ -78,11 +78,13 @@ class TasksController < ApplicationController
     end
     # ------------
 
-    if @the_order_has_changed 
+    if @the_order_has_changed
       @changed_task = Task.find_by_order @original_order
       if @changed_task.update_attributes(:order => @order_to_be_set)
         @order_to_be_set = @order_to_be_set.to_i
-        
+
+        # Better use DHH plugin acts_as_list
+
         ## -------------- Moving task down --------------
         if @tasks_to_update = Task.find(:all, :conditions => ["`order` >= ? AND `order` <= ? AND id != ? ",
               @original_order, @order_to_be_set, @changed_task.id], :order => "`order` ASC")
