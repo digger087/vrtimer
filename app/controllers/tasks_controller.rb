@@ -85,6 +85,7 @@ class TasksController < ApplicationController
 
         # Better use DHH plugin acts_as_list
         # Ok
+        # so what?
 
         ## -------------- Moving task down --------------
         if @tasks_to_update = Task.find(:all, :conditions => ["`order` >= ? AND `order` <= ? AND id != ? ",
